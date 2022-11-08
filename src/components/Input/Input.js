@@ -1,9 +1,9 @@
 import { Component } from "../../core";
 
-export class Button extends Component{
+export class Input extends Component{
     registerEvents(){
         this.addEventListener('click',() => {
-            this.dispatch(this.props.eventtype)
+            this.dispatchEvent(this.props.eventtype)
         })
     }
 
@@ -14,9 +14,9 @@ export class Button extends Component{
     render(){
         const { content,classname } = this.props;
         return `
-        <button type="button" class=" ${classname}">${content}</button>
+        <input type="text" class=${classname} placeholder=${content} aria-label="Recipient's username" aria-describedby="button-addon2">
         `
     }
 }
 
-customElements.define('it-button', Button)
+customElements.define('it-input', Input)
