@@ -1,6 +1,6 @@
-import {Component} from './core'
-import './components'
-import { todoList, TodoList } from './services/ToDoList/ToDoList';
+import {Component} from '../../core'
+import '../malecules'
+import { todoList, TodoList } from '../../services/ToDoList/ToDoList';
 
 
 export class App extends Component {
@@ -8,10 +8,7 @@ export class App extends Component {
     render(){
         return `
         <div class='container mt-5'>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Add a new task" aria-label="Recipient's username" aria-describedby="button-addon2" value = ${this.state.value}>
-          <it-button classname="btn btn-outline-primary" type="button" id="button-addon2" content="Save" eventtype='save-task'></it-button>
-        </div>
+        <it-inputgroup></it-inputgroup>
         <ul class="list-group">
           <li class="list-group-item">
             <div class="form-check d-flex justify-content-between align-items-center">
