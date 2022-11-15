@@ -1,4 +1,5 @@
 import { Component } from "../../../core";
+import { debounce } from "../../../utils/debounce";
 
 export class Input extends Component{
     constructor(){
@@ -6,12 +7,11 @@ export class Input extends Component{
         this.state = {
             value: '',
         }
+        this.onInput = this.onInput.bind(this)
     }
    
     componentDidMount(){
-        this.addEventListener('click',() => {
-            this.dispatch(this.props.eventtype)
-        })
+        this.addEventListener('input',debounce(this.onInput,3000))
     };
     
     static get observedAttributes(){
@@ -29,14 +29,15 @@ export class Input extends Component{
         }
     };
 
-    onChange(){
-        this.dispatch('')
+    onInput(evt){
+        this.dispatch('custom-input',{value:evt.target.value})
     }
-    
+
+ 
     render(){
         const { type, placeholder, value } = this.props;
         return `
-        <input type="${type}" class="form-control" placeholder="${placeholder}" >
+        <input type="${type}" class="form-control" placeholder="${placeholder}" value = "${this.state.value}">
         `
     }
 }
