@@ -1,14 +1,9 @@
 import { Component } from "../../core";
 
 export class Input extends Component{
-    registerEvents(){
-        this.addEventListener('click',() => {
-            this.dispatchEvent(this.props.eventtype)
-        })
-    }
-
+   
     static get observedAttributes(){
-        return ['content', 'classname', 'eventtype'];
+        return ['content', 'classname'];
     };
     
     render(){

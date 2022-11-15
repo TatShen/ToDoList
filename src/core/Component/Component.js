@@ -3,30 +3,20 @@ export class Component extends HTMLElement{
         super();
         this.state = {};
         this.props ={};
-
-
     }
 
     setState(callback){
         this.state = callback(this.state);
-        this.innerHTML = this.render()
-            .toString()
-            .trim()
-            .replaceAll(/true|false/gi, '')
-            .replaceAll(',','')
+        this.innerHTML = this.render();
     };
     
     connectedCallback(){
-        this.innerHTML = this.render()
-            .trim()
-            .replaceAll(/true|false/gi, '')
-            .replaceAll(',','');
+        this.innerHTML = this.render();
         this.componentDidMount();
-        this.registerEvents();
     };
 
     disconnectedCallback(){
-        this.componentWillUnMount()
+        this.componentWillUnMount();
     };
 
     attributeChangedCallback(name, oldValue, newValue){
@@ -39,8 +29,6 @@ export class Component extends HTMLElement{
     dispatch(type, props){
         this.dispatchEvent(new CustomEvent(type, {bubbles:true, detail:props}));
     };
-
-    registerEvents(){};
 
     componentDidMount(){};             //вызовется когда элемент будет вмонтирован в дерево;
 
