@@ -9,6 +9,10 @@ export class TodoList{
        return this.database.create('tasks', body)
     };
 
+    getTasks(){
+        return this.database.read('tasks')
+    };
+
 
 }
 
