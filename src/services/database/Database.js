@@ -38,7 +38,7 @@ export class Database {
 
     delete(collectionKey, id){
         const document = doc(this._database,collectionKey, id);
-        return this.deleteDoc(document);
+        return deleteDoc(document);
     };
 
     static getInstance(){

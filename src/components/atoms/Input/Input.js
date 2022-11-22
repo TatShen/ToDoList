@@ -15,7 +15,7 @@ export class Input extends Component{
     };
     
     static get observedAttributes(){
-        return ['placeholder',  'value', 'type'];
+        return ['placeholder',  'value', 'type', 'name'];
     };
 
     componentWillUpdate(name, oldValue, newValue){
@@ -35,9 +35,9 @@ export class Input extends Component{
 
  
     render(){
-        const { type, placeholder, value } = this.props;
+        const { type, placeholder, value, name } = this.props;
         return `
-        <input type="${type}" class="form-control" placeholder="${placeholder}" value = "${this.state.value}">
+        <input type="${type}" class="form-control" placeholder="${placeholder}" value = "${this.state.value}" name="${name}">
         `
     }
 }
