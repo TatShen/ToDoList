@@ -1,4 +1,5 @@
 import { Component } from "../../../core";
+import { todoList } from "../../../services/ToDoList/ToDoList";
 import '../../atoms'
 
 export class Task extends Component {
@@ -15,27 +16,29 @@ export class Task extends Component {
 
   onClick(evt) {
     if (evt.target.closest(".edit")) {
+      this.toggleEditting()
+    }
+    if (evt.target.closest(".cancel")){
       const taskId = evt.target.dataset.taskId;
+      this.onCancel(taskId)
+      this.toggleEditting()
+    }
+    }
+
+    toggleEditting = () => {
       this.setState((state) => {
         return {
           ...state,
-          isEditting: true,
+          isEditting: !state.isEditting,
         };
       });
     }
-    if (evt.target.closest(".")) {
-        const taskId = evt.target.dataset.taskId;
 
-  }}
 
-  editTask(){
-
-  }
 
   componentDidMount() {
     this.addEventListener("click", this.onClick);
-    
-  }
+    }
 
   componentWillUnMount() {
     this.removeEventListener("click", this.onClick);
@@ -48,9 +51,8 @@ export class Task extends Component {
     <li class="list-group-item mt-2" id = "${id}">
               <div class="form-check d-flex justify-content-between align-items-center">
               ${this.state.isEditting ? 
-                `<it-inputgroup type="save-task"></it-inputgroup>
-               
-              `
+                `<it-inputgroup type="edit-task" isshowcancelbutton = "true" value = "${title}" taskid="${id}"></it-inputgroup>
+                `
                   : `<div>
                         <input class="form-check-input" type="checkbox" ${JSON.parse(iscompleted) ? "ckecked" : ""} id="${id}">
                         <label class="form-check-label" for="${id}">${title}</label>

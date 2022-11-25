@@ -37,15 +37,16 @@ export class App extends Component {
     
   }
 
-  deleteTask(taskId) {
-    todoList.deleteTask(taskId).then(() => {
+  deleteTask = (taskId,evt) => {
+    todoList.deleteTask(taskId, evt.detail.title).then(() => {
       this.getTasks();
     });
   }
 
-  editTask(evt) {
-      todoList.updateTask(taskId);
-      this.getTasks();
+  updateTask = ({detail}) => { //деструктуризация ( из evt достаем только detail)
+      todoList.updateTask(detail.id, {title: detail.title, isCompleted:false}).then(() =>{
+        this.getTasks();
+      });
     }
   
 
@@ -53,18 +54,20 @@ export class App extends Component {
     this.getTasks();
     this.addEventListener("save-task", this.saveTask);
     this.addEventListener("click", this.onClick);
+    this.addEventListener("edit-task", this.updateTask)
   }
 
   componentWillUnMount() {
     this.removeEventListener("save-task", this.saveTask);
     this.removeEventListener("click", this.onClick);
+    this.removeEventListener("edit-task", this.updateTask)
   }
 
   render() {
     console.log(this.state.tasks);
     return `
         <div class='container mt-5'>
-          <it-inputgroup type="save-task" classname=""></it-inputgroup>
+          <it-inputgroup type="save-task"  classname="collapse"></it-inputgroup>
         </div>
         <ul class="list-group mt-5">
            ${this.state.tasks

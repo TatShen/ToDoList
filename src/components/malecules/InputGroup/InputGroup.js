@@ -8,16 +8,21 @@ export class InputGroup extends Component {
   onSubmit = (evt) => {
     evt.preventDefault();
     const task = {};
-    const data = new FormData(evt.target)
+    const data = new FormData(evt.target);
+    if(this.props.taskid){
+      data.append('id', this.props.taskid)
+    };
     data.forEach((value, key) => {
         task[key] = value;
-    })
+    });
+   
     this.dispatch(this.props.type, task)
 
   };
 
-  componentDidMount() {
+   componentDidMount() {
     this.addEventListener("submit", this.onSubmit);
+    
   };
 
   componentWillUnMount() {
@@ -26,18 +31,18 @@ export class InputGroup extends Component {
   };
 
   static get observedAttributes() {
-    return ["type", "classname"];
+    return ["type",  'value', 'isshowcancelbutton', 'taskid'];
   };
 
   render() {
-    const {classname} = this.props
+    const {value,isshowcancelbutton, taskid} = this.props
     return `
         <form class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Add a new tasks"  name="title">
-            <button class="btn btn-outline-primary " type="submit" id="button-addon2">Save</it-button>
-            <button class="btn btn-outline-danger ${classname} " type="submit" id="button-addon2">Cancel</it-button>
-        </form>
-        `;
+            <input type="text" class="form-control" placeholder="Add a new tasks"  name="title" value="${value ?? ''}">
+            <button class="btn btn-outline-primary " type="submit" id="button-addon2" taskid="${taskid}">Save</it-button>
+            ${isshowcancelbutton ? 
+            `<button class="btn btn-outline-secondary cancel" type="button" id="button-addon2" i">Cancel</it-button>`:''}
+        </form>`;
   };
 }
 
